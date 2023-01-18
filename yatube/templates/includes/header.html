@@ -1,0 +1,276 @@
+{% load static %}
+<style>
+  *, *:before, *:alter{
+    padding: 0;
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
+  }
+
+  html, body{
+    height: 100%;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  }
+
+  .container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0px 10px;
+  }
+
+  .header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 50;
+  }
+
+  .header:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #821abf;
+    z-index: 1;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+  }
+  .header__body {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    height: 80px;
+    align-items: center;
+  }
+  .header__logo {
+    flex: 0 0 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    z-index: 3;
+  }
+
+  .header__logo img {
+    max-width: 100%;
+    display: block;
+  }
+
+  .header__a,
+  .header__a:hover {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    padding: 0px 0px 0px 0px;
+    font-size:18px;
+    letter-spacing: 1px;
+  }
+
+  .header__burger {
+    display: none;
+
+  }
+  .header__menu {
+  }
+
+  .header__list {
+    display: flex;
+    z-index: 2;
+  }
+  .header__list li {
+    list-style: none;
+    margin: 0px 0px 0px 5px;
+  }
+
+  .header__link {
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 14px;
+    text-decoration: none;
+  }
+  
+  .nav-pills > li > a.active {
+    background-color: #bf821a !important;
+  }
+
+  .header__menu ul li a:hover {
+      color: white;
+      font-weight: bolder;
+  }
+
+  .login__user {
+    color: black;
+  }
+
+  @media (max-width:1000px){
+    body.lock {
+      overflow: hidden;
+    }
+    .header__body {
+      height: 50px;
+    }
+    .header__logo{
+      flex: 0 0 40px;
+    }
+    .header__burger {
+      display: block;
+      position: relative;
+      width: 30px;
+      height: 20px;
+      z-index: 10;
+    }
+    .header__burger span {
+      position: absolute;
+      background-color: #fff;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      top: 9px;
+      transition: all 0.3s ease 0s;
+    }
+    .header__burger:before,
+    .header__burger:after {
+      content:'';
+      background-color: #fff;
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      left: 0;
+      transition: all 0.3s ease 0s;
+    }
+    .header__burger:before{
+      top: 0;
+    }
+    .header__burger:after{
+      bottom: 0;
+    }
+
+    .header__burger.active span {
+      transform: scale(0);
+    }
+    .header__burger.active:before {
+      transform: rotate(45deg);
+      top: 9px;
+    }
+    .header__burger.active:after {
+      transform: rotate(-45deg);
+      bottom: 9px;
+    }
+
+    .header__menu {
+      position: fixed;
+      top: -100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      transition: all 0.3s ease 0s;
+      background-color: #1abf82;
+      padding: 70px 10px 20px 10px;
+    }
+
+    .header__menu.active {
+      top: 0;
+    }
+
+    .header__list {
+      display: block;
+    }
+
+    .header__list li{
+      margin: 0px 0px 20px 0px;
+    }
+
+    .header__link {
+      font-size: 18px;
+    }
+  }
+  
+
+  .content {
+    padding: 100px 0px 0px 0px;
+  }
+
+  .content__text {
+    font-size: 18px;
+    line-height: 25px;
+  }
+
+  .content__text p {
+    margin: 0 0 20px 0;
+  }
+
+  @media (max-width:1000px){
+    .content {
+      padding: 70px 0px 0px 0px;
+    }
+  }
+</style>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.header__burger').click(function(event){
+      $('.header__burger,.header__menu').toggleClass('active');
+      $('body').toggleClass('lock');
+    });
+  });
+</script>
+
+<header class="header">
+  <div class="container">
+    <div class="header__body">
+      <a href="{% url 'posts:index' %}" class="header__logo">
+        <img src="{% static "img/logo.png" %}" alt="">
+      </a>
+      <a href="{% url 'posts:index' %}" class="header__a"><span style="color:red">Ya</span>tube</a>
+      <div class="header__burger">
+        <span></span>
+      </div>
+      <nav class="header__menu">
+        <ul class="header__list nav nav-pills">
+          {% with request.resolver_match.view_name as view_name %}
+          <li>
+            <a href="{% url 'about:author' %}" class="header__link 
+            nav-link {% if view_name  == 'about:author' %}active{% endif %}">Об авторе</a>
+          </li>
+          <li>
+            <a href="{% url 'about:tech' %}" class="header__link
+            nav-link {% if view_name  == 'about:tech' %}active{% endif %}">Технологии</a>
+          </li>
+          {% if request.user.is_authenticated == True %}
+          <li>
+            <a href="{% url 'posts:post_create' %}" class="header__link
+            nav-link {% if view_name  == 'posts:post_create' %}active{% endif %}">Новая запись</a>
+          </li>
+          <li>
+            <a href="{% url 'users:password_change' %}" class="header__link
+            nav-link {% if view_name  == 'users:password_change' %}active{% endif %}">Изменить пароль</a>
+          </li>
+          <li>
+            <a href="{% url 'users:logout' %}" class="header__link
+            nav-link {% if view_name  == 'users:logout' %}active{% endif %}">Выйти</a>
+          </li>
+          <li>
+            <a href="#" class="nav-link login__user">Пользователь: {{ user.username }}</a>
+          </li>
+          {% else %}
+          <li>
+            <a href="{% url 'users:login' %}" class="header__link
+            nav-link {% if view_name  == 'users:login' %}active{% endif %}">Войти</a>
+          </li>
+          <li>
+            <a href="{% url 'users:signup' %}" class="header__link
+            nav-link {% if view_name  == 'users:signup' %}active{% endif %}">Регистрация</a>
+          </li>
+          {% endif %}
+          {% endwith %} 
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
