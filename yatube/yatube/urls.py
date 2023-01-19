@@ -21,6 +21,7 @@ from django.conf.urls import handler404, handler403
 
 
 urlpatterns = [
+    path('', include('core.urls', namespace='core')),
     path('', include('posts.urls', namespace='posts')),
     path('admin/', admin.site.urls, name='admin'),
     path('auth/', include('users.urls', namespace='users')),
@@ -28,8 +29,8 @@ urlpatterns = [
     path('about/', include('about.urls', namespace='about')),
 ]
 
-handler404 = 'posts.views.page_not_found'
-handler403 = 'posts.views.csrf_failure'
+handler404 = 'core.views.page_not_found'
+handler403 = 'core.views.csrf_failure'
 
 if settings.DEBUG:
     urlpatterns += static(

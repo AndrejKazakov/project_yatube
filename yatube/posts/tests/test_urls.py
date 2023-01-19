@@ -8,6 +8,7 @@ User = get_user_model()
 
 
 class StaticURLTests(TestCase):
+
     def setUp(self):
         self.guest_client = Client()
 
@@ -82,7 +83,6 @@ class TaskURLTests(TestCase):
             reverse(
                 'posts:post_edit',
                 kwargs={'post_id': self.post.id}): 'posts/create_post.html',
-            reverse('posts:404'): 'core/404.html'
         }
         for address, template in url_names.items():
             with self.subTest(address=address):

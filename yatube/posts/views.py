@@ -1,22 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Post, Group, User, Comment, Follow
+from .models import Post, Group, User, Follow
 from .forms import PostForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from .utils import paginator
 from django.urls import reverse
-
-
-def page_not_found(request, exception):
-    return render(
-        request,
-        'core/404.html',
-        {'path': request.path},
-        status=404
-    )
-
-
-def csrf_failure(request, reason=''):
-    return render(request, 'core/403csrf.html')
 
 
 def index(request):
@@ -74,7 +61,7 @@ def post_detail(request, post_id):
     form = CommentForm()
     post = get_object_or_404(Post, id=post_id)
 
-    comments = Comment.objects.filter(post=post_id)
+    comments = post.comments.all()
     posts_count = Post.objects.count()
     context = {
         'post': post,
@@ -140,7 +127,6 @@ def add_comment(request, post_id):
 
 @login_required
 def follow_index(request):
-    # информация о текущем пользователе доступна в переменной request.user
     template = 'posts/follow.html'
 
     post_list = Post.objects.filter(author__following__user=request.user)
@@ -156,11 +142,11 @@ def follow_index(request):
 
 @login_required
 def profile_follow(request, username):
-    # Подписаться на автора
     user = request.user
-    author = User.objects.get(username=username)
-    is_follower = Follow.objects.filter(user=user, author=author)
-    if user != author and not is_follower.exists():
+    # author = User.objects.get(username=username)
+    author = get_object_or_404(User, username=username)
+    follower_objects = Follow.objects.filter(user=user, author=author)
+    if user != author and not follower_objects.exists():
         Follow.objects.create(user=user, author=author)
     return redirect(reverse('posts:profile', kwargs={'username': username}))
 

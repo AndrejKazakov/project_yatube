@@ -15,8 +15,7 @@ urlpatterns = [
         views.add_comment,
         name='add_comment'
     ),
-    path('posts/404/', views.page_not_found, name='404'),
-    path('posts/403/', views.csrf_failure, name='403'),
+
     path('follow/', views.follow_index, name='follow_index'),
     path(
         'profile/<str:username>/follow/',
