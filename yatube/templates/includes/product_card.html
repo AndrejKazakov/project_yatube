@@ -1,5 +1,7 @@
 {% load thumbnail %}
-<ul>
+{% comment %} <div class="card" style="margin-bottom: 30px; padding: 2%; background:#f5fff7;"> {% endcomment %}
+{% comment %} <div class="row">
+    <ul class="col-6">
     {% if request.resolver_match.view_name != 'posts:profile' %}
         <li>
             Автор: {{ post.author.get_full_name }}
@@ -9,13 +11,125 @@
     <li>
         Дата публикации: {{ post.pub_date|date:"d E Y" }}
     </li>
-</ul>
-{% thumbnail post.image "660x339" crop="center" upscale=True as im %}
-    <img src="{{ im.url }}" class="img-fluid">
-{% endthumbnail %}
-<p>{{ post.text }}</p>
-<a href="{% url 'posts:post_detail' post.id %}">подробная информация</a> <br>
-{% if post.group %}
-    <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
-{% endif %}
-{% if not forloop.last %}<hr>{% endif %}
+    {% if post.end_date %}
+        <li>
+            Дата окончания: {{ post.end_date|date:"d E Y" }}
+        </li>
+    {% endif %}
+    <li>
+        <span class="ymaps-geolink">
+            {{ post.address }}
+        </span>
+    </li>
+    <li>
+            <a href="{% url 'posts:group_list' post.group.slug %}">{{ post.group.title }}</a>
+    </li>
+    </ul>
+    <div class="cost col-6" style="text-align: right;">
+        Стоимость на человека: <span style="color: green; font-weight: bold; font-size:18px;">{{ post.cost }}</span>
+    </div>
+</div> {% endcomment %}
+
+<div class="row">
+    <div class="image col-xl-5 col-s-12">
+        {% thumbnail post.image "1200x1000" crop="center" upscale=True as im %}
+        <img src="{{ im.url }}" class="img-fluid col-11" style="border-radius: 50% 10% / 10% 40%;">
+        {% endthumbnail %}
+    </div>
+    <div class="text col-xl-7 col-s-12">
+        <div class="text_title">
+            {% if post.title %}
+            <div class="row">
+                <h3 style="padding-top:10px; text-align: justify;">{{ post.title|truncatechars:300 }}</h3>
+                {% comment %} <div class="col-8">
+                    <h3 style="padding-top:10px; text-align: justify;">{{ post.title|truncatechars:300 }}</h3>
+                </div>
+                <div class="col-4">
+                    <h3 style="text-align:right; padding-top:10px; ">Цена: {{ post.cost }}</h3>
+                </div> {% endcomment %}
+            </div>
+                
+                    
+                    
+            {% endif %}
+            {% comment %} <span style = "font-size:13px; color:silver">{{ post.address }}</span> {% endcomment %}
+            <span class="ymaps-geolink" style = "font-size:70%; color:#969696;">
+                {{ post.address }}
+            </span>
+            <hr>
+            <p style="padding-top:10px; text-align: justify;">{{ post.text|truncatechars:300 }}</p>
+            <row>
+                {% comment %} <span style="border: 1px solid #969696; border-radius:10px; padding: 10px; margin-right:10px; font-size: 12px;">
+                    Цена с человека: {{ post.cost }}
+                </span> {% endcomment %}
+                <span style="font-size: 18px;">
+                    Цена с человека: <span style="color:green; font-weight:bold; font-size:20px;">{{ post.cost }}</span>
+                </span>
+
+                {% comment %} <span style="border: 1px solid #969696; border-radius:10px; padding: 10px; font-size: 12px;">
+                    {{ post.group.title }}
+                </span> {% endcomment %}
+            </row>
+            {% comment %} <row> {% endcomment %}
+                {% comment %} <a href="{% url 'posts:post_detail' post.id %}" style="text-align: right; border: 1px solid #969696; border-radius:10px; padding: 10px; font-size: 12px;">подробная информация</a> <br> {% endcomment %}
+            {% comment %} </row> {% endcomment %}
+        </div>
+        <div>
+            <a href="{% url 'posts:post_detail' post.id %}" style="float: right; border: 1px solid #969696; border-radius:20px; padding: 10px; font-size: 16px; background:green; color: white;">
+                Подробная информация
+            </a>
+            <br>
+        </div>
+    </div>
+</div>
+<br>
+{% comment %} <hr> {% endcomment %}
+<br>
+{% comment %} <a href="{% url 'posts:post_detail' post.id %}" style="text-align: right;">Подробная информация</a> <br> {% endcomment %}
+
+
+{% comment %} </div> {% endcomment %}
+
+{% comment %} {% load thumbnail %}
+<div class="card" style="margin-bottom: 30px; padding: 2%; background:#f5fff7;">
+<div class="row">
+    <ul class="col-6">
+    {% if request.resolver_match.view_name != 'posts:profile' %}
+        <li>
+            Автор: {{ post.author.get_full_name }}
+            <a href="{% url 'posts:profile' post.author %}">все посты пользователя</a>
+        </li>
+    {% endif %}
+    <li>
+        Дата публикации: {{ post.pub_date|date:"d E Y" }}
+    </li>
+    {% if post.end_date %}
+        <li>
+            Дата окончания: {{ post.end_date|date:"d E Y" }}
+        </li>
+    {% endif %}
+    <li>
+        <span class="ymaps-geolink">
+            {{ post.address }}
+        </span>
+    </li>
+    <li>
+            <a href="{% url 'posts:group_list' post.group.slug %}">{{ post.group.title }}</a>
+    </li>
+    </ul>
+    <div class="cost col-6" style="text-align: right;">
+        Стоимость на человека: <span style="color: green; font-weight: bold; font-size:18px;">{{ post.cost }}</span>
+    </div>
+</div>
+
+<div class="row">
+    {% thumbnail post.image "1200x450" crop="center" upscale=True as im %}
+    <img src="{{ im.url }}" class="img-fluid col-8" style="border-radius:30px;">
+    {% endthumbnail %}
+
+    <div class="col-4">
+        <p style="padding-top:10px; text-align: justify;">{{ post.text|truncatechars:300 }}</p>
+    </div>
+</div>
+<a href="{% url 'posts:post_detail' post.id %}" style="text-align: right;">подробная информация</a> <br>
+</div> {% endcomment %}

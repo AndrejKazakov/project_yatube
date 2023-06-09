@@ -3,6 +3,7 @@
 <html lang="ru">
   <head>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=62d59284-05fd-4625-be2c-70a5f1da8c5a&lang=ru_RU&load=Geolink" type="text/javascript"></script>
     <meta name="viewport" content="width=device-width">
     <title>{% block title %}{% endblock title %}</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
@@ -12,13 +13,14 @@
       {% include 'includes/header.html' %}
     </header>
     <main>
+      {% block main %}{% endblock main %}
       <div class="content">
-        <div class="container">
+        {% comment %} <div class="container"> {% endcomment %}
           {% block header %}{% endblock header %}
           <div class="content__text">
             {% block content %}{% endblock content %}
           </div>
-        </div>
+        {% comment %} </div> {% endcomment %}
       </div>
     </main>
     <footer>

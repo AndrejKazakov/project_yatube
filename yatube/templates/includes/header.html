@@ -7,6 +7,11 @@
     box-sizing: border-box;
   }
 
+  a {
+    text-decoration: none;
+    color: #00c32a;
+  }
+
   html, body{
     height: 100%;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
@@ -33,7 +38,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #821abf;
+    {% comment %} background-color: #821abf; {% endcomment %}
+    background-color: #242323;
     z-index: 1;
   }
 
@@ -63,11 +69,11 @@
 
   .header__a,
   .header__a:hover {
-    text-decoration: none;
-    color: black;
+    text-decoration: uppercase;
+    color: white;
     font-weight: bold;
     padding: 0px 0px 0px 0px;
-    font-size:18px;
+    font-size:24px;
     letter-spacing: 1px;
   }
 
@@ -88,7 +94,7 @@
   }
 
   .header__link {
-    color: #fff;
+    color: #e5e5e5;
     text-transform: uppercase;
     font-size: 14px;
     text-decoration: none;
@@ -104,7 +110,7 @@
   }
 
   .login__user {
-    color: black;
+    color: #00e500;
   }
 
   @media (max-width:1000px){
@@ -199,6 +205,7 @@
   .content__text {
     font-size: 18px;
     line-height: 25px;
+    background:
   }
 
   .content__text p {
@@ -224,10 +231,10 @@
 <header class="header">
   <div class="container">
     <div class="header__body">
-      <a href="{% url 'posts:index' %}" class="header__logo">
+      {% comment %} <a href="{% url 'posts:index' %}" class="header__logo">
         <img src="{% static "img/logo.png" %}" alt="">
-      </a>
-      <a href="{% url 'posts:index' %}" class="header__a"><span style="color:red">Ya</span>tube</a>
+      </a> {% endcomment %}
+      <a href="{% url 'posts:index' %}" class="header__a"><span style="color:#00e500;">AGRO</span>тур</a>
       <div class="header__burger">
         <span></span>
       </div>
@@ -236,11 +243,11 @@
           {% with request.resolver_match.view_name as view_name %}
           <li>
             <a href="{% url 'about:author' %}" class="header__link 
-            nav-link {% if view_name  == 'about:author' %}active{% endif %}">Об авторе</a>
+            nav-link {% if view_name  == 'about:author' %}active{% endif %}">FAQ</a>
           </li>
           <li>
             <a href="{% url 'about:tech' %}" class="header__link
-            nav-link {% if view_name  == 'about:tech' %}active{% endif %}">Технологии</a>
+            nav-link {% if view_name  == 'about:tech' %}active{% endif %}">О нас</a>
           </li>
           {% if request.user.is_authenticated == True %}
           <li>

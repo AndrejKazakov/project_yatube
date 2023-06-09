@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator
 
-NUMBER_OF_RECORDS = 10
+NUMBER_OF_RECORDS = 3
 
 
 def paginator(request, posts_list):

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 User = get_user_model()
 
@@ -14,6 +15,13 @@ class Group(models.Model):
 
 
 class Post(models.Model):
+    title = models.CharField(
+        'Заголовок',
+        max_length=40,
+        help_text='Основная цель мероприятия',
+        null=True,
+        blank=True
+    )
     text = models.TextField(
         'Текст поста',
         help_text='Текст нового поста',
@@ -36,6 +44,25 @@ class Post(models.Model):
         on_delete=models.CASCADE,
         related_name='posts',
         verbose_name='Автор',
+    )
+    address = models.CharField(
+        'Адрес',
+        max_length=200,
+        blank=True,
+        null=True,
+        help_text='Адрес, где будет проводиться данное мероприятие')
+    cost = models.IntegerField(
+        'Цена',
+        max_length=50,
+        blank=True,
+        null=True,
+        help_text='Цена, с указанием денежной валюты'
+    )
+    end_date = models.DateField(
+        'Дата окончания',
+        null=True,
+        blank=True,
+        help_text='Дата окончания мероприятия'
     )
     image = models.ImageField(
         'Картинка',
@@ -63,6 +90,14 @@ class Comment(models.Model):
         on_delete=models.CASCADE,
         related_name='comments'
     )
+    # estimation = models.IntegerField(
+    #     validators=[
+    #         MaxValueValidator(100),
+    #         MinValueValidator(1)
+    #     ],
+    #     null=True,
+    #     blank=True
+    # )
     text = models.TextField(
         'Текст комментария',
         help_text='Текст комментария'

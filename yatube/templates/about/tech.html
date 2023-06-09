@@ -1,34 +1,275 @@
 {% extends "base.html" %}
-{% block title %}Технологии{% endblock %}
-{% block content %}
-<div class="container">
-    <div class="row">
-        <h1>Вот что я умею</h1>
-        <div class="col-md-6">
-            <div class="card mb-4 mb-md-0">
-                <div class="card-body">
-                    <aside class="col-12 col-md-12">
-                        <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            Python
-                        </li>
-                        <li class="list-group-item">
-                            Django
-                        </li>
-                        </ul>
-                    </aside>
-                </div>
+{% load static %}
+{% block title %}О нас{% endblock %}
+{% block main %}
+{% comment %} <body style="background-image: url('./yatube/static/img/main.jpg')"> {% endcomment %}
+<style>
+    .background {
+        height: 900px;
+        background-image: url('/static/img/main.jpg');
+        background-size: cover;
+        {% comment %} background-size: 50%; {% endcomment %}
+        background-position: center center;
+        {% comment %} background-size: 100% 100%; {% endcomment %}
+        {% comment %} width: 100%; {% endcomment %}
+        {% comment %} height: 900px; {% endcomment %}
+        {% comment %} box-shadow: 0 20px 20px 30px white inset; {% endcomment %}
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0.9    ;
+    }
+    .text-header {
+        max-width:600px;
+        word-wrap: break-word;
+        font-size: 24px;
+        text-align: center;
+        text-shadow: 4px 2px 6px black;
+    }
+    .main-button {
+        background: #12a700;
+        border-radius: 15px;
+        border: 1px solid #00c32a;
+        margin: 10px;
+        padding: 5px;
+    }
+
+    .main-button a{
+        color: white;
+    }
+</style>
+<div class="background">
+    <div class="text-header">
+        <h1>Агротуризм</h1>
+        <p>
+            Отдых в России - это незабываемое время наслаждения природой.
+            Мы собрали уникальные предложения от современных фермеров: экскурсии, мастер-классы и дегустации
+        </p>
+        <div class="row" style="display:flex; justify-content: center;">
+            <div class="main-button col-5">
+                <a href="{% url 'posts:index' %}">Найти тур</a>
             </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card mb-4 mb-md-0">
-                <div class="card-body">
-                    <article class="col-12 col-md-9">
-                        <p>Текст страницы "Технологии"</p>
-                    </article>
-                </div>
+            <div class="main-button col-5">
+                <a href="{% url 'posts:post_create' %}">Выложить тур</a>
             </div>
         </div>
     </div>
+</div>
+
+<div style="background-color: green; height: 5px; width: 100%; margin-bottom: 3%;"></div>
+
+<style>
+    .text p {
+        font-size: 20px;
+        text-align: justify;
+        margin-bottom: 5%;
+    }
+    h2 {
+        text-align:center;
+        margin-bottom: 2%;
+    }
+</style>
+<div class="container text">
+    <h2>Почему мы?</h2>
+    <p><span style="color:green; font-weight: bold;">AGRO</span><span style="font-weight: bold;">тур</span>
+    - это сервис, который помогает людям найти и забронировать интересные агротуры по всей стране.
+    Мы сотрудничаем с лучшими агротуристическими компаниями, фермами и винодельнями,чтобы предоставить 
+    Вам самые разнообразные и захватывающие путешествия в мире сельского хозяйства.
+    </p>
+    <h2>Возможности</h2>
+    <p>
+        <span style="color:green; font-weight: bold;">AGRO</span><span style="font-weight: bold;">тур</span> предоставляет удобную возможность фильтрации туров, чтобы вы могли легко найти тур, который соответствует 
+        вашим интересам и предпочтениям. Вы можете отфильтровать туры по различным критериям, таким как тип тура, 
+        местоположение, продолжительность, цена, и многое другое. Это позволяет вам быстро найти тур, который наиболее подходит для вас.
+        Мы также группируем туры по категориям, чтобы сделать поиск еще более удобным. 
+        <br><br>
+
+        Вы можете выбрать категорию тура, такую как фермы, винодельни, оранжереи, 
+        рыболовные хозяйства и многое другое, и просмотреть туры, которые относятся к этой категории.
+        <br><br>
+        {% comment %} <div class="img" style="border-radius:30px; text-align: center;"> {% endcomment %}
+            {% comment %} <img src="{% static 'img/agro.jpg' %}" style="width:70%;"></img> {% endcomment %}
+        {% comment %} </div> {% endcomment %}
+        <style>
+            .img_group {
+                border: 3px solid #00a8e1;
+                border-radius: 10px;
+                height: 400px;
+            }
+            .button__group {
+                color: black;
+                background: silver;
+                font-size: 20px;
+                font-weight: bold;
+                border: 3px solid silver;
+                border-radius: 5px;
+                text-align:center;
+                padding: 5px;
+                opacity: 0.6;
+                {% comment %} margin: 20px; {% endcomment %}
+                text-decoration: none;
+            }
+            .d {
+                border: 5px solid white;
+                border-radius: 20px;
+                {% comment %} margin-bottom: 10px; {% endcomment %}
+            }
+            .text__group p {
+                color: white;
+                font-weight: bold;
+                font-size: 22px;
+                text-shadow: 0 1px 10px #000; /* тень черного цвета /
+            }
+        </style>
+        
+        <div class="row">
+            <div class="col-xl-6 col-sm-12 d" style="background-color: green; height: 300px; background-image: url('/static/img/sbor.jpg'); background-size: cover;">
+                {% comment %} <img class="img_group" src="{% static 'img/sbor.jpg' %}" style="width:100%;"></img> {% endcomment %}
+                <div class="col-3">
+                    <a class="button__group" href="http://127.0.0.1:8000/group/harvesting/">Подробнее</a>
+                </div>
+                <div class="text__group">
+                    <p>
+                        Сбор урожая
+                    </p>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-12 d" style="background-color: red; height: 300px; background-image: url('/static/img/activ.jpg'); background-size: cover;">
+                {% comment %} <img class="img_group" src="{% static 'img/activ.jpg' %}" style="width:100%;"></img> {% endcomment %}
+                <div class="col-3">
+                    <a class="button__group" href="http://127.0.0.1:8000/group/outdoor_activity/">Подробнее</a>
+                </div>
+                <div class="text__group">
+                    <p>
+                        Активность на природе
+                    </p>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-12 d" style="background-color: yellow; height: 300px; background-image: url('/static/img/ed.jpg'); background-size: cover;">
+                {% comment %} <img class="img_group" src="{% static 'img/ed.jpg' %}" style="width:100%;"></img> {% endcomment %}
+                <div class="col-3">
+                    <a class="button__group" href="http://127.0.0.1:8000/group/trading/">Подробнее</a>
+                </div>
+                <div class="text__group">
+                    <p>
+                        Торговля
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-6 col-sm-12 d" style="background-color: blue; height: 400px; background-image: url('/static/img/animal.jpg'); background-size: cover;">
+                {% comment %} <img class="img_group" src="{% static 'img/animal.jpg' %}" style="width:100%;"></img> {% endcomment %}
+                <div class="col-3">
+                    <a class="button__group" href="http://127.0.0.1:8000/group/communication_with_animals/">Подробнее</a>
+                </div>
+                <div class="text__group">
+                    <p>
+                        Общение с животными
+                    </p>
+                </div>
+            </div>
+            <div class="col-xl-6 col-sm-12 d" style="background-color: silver; height: 400px; background-image: url('/static/img/razvl.jpg'); background-size: cover;">
+                {% comment %} <img class="img_group" src="{% static 'img/razvl.jpg' %}" style="width:100%;"></img> {% endcomment %}
+                <div class="col-3">
+                    <a class="button__group" href="http://127.0.0.1:8000/group/entertainments/">Подробнее</a>
+                </div>
+                <div class="text__group">
+                    <p>
+                        Развлечения
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 d" style="background-color: orange; height: 400px; background-image: url('/static/img/photo.jpg'); background-size: cover;">
+                {% comment %} <img class="img_group" src="{% static 'img/photo.jpg' %}" style="width:100%;"></img> {% endcomment %}
+                <div class="col-3">
+                    <a class="button__group" href="http://127.0.0.1:8000/group/education/">Подробнее</a>
+                </div>
+                <div class="text__group">
+                    <p>
+                        Образование
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="justify-content: center;">
+            <div class="col-xl-3 col-sm-12 d" style="background-color: red; height: 300px; background-image: url('/static/img/otdih.jpg'); background-size: cover;">
+                <div class="col-3">
+                    <a class="button__group" href="http://127.0.0.1:8000/group/rest_and_nutrition/">Подробнее</a>
+                </div>
+                <div class="text__group">
+                    <p>
+                        Отдых на природе
+                    </p>
+                </div>
+            </div>
+            <div class="col-xl-6 col-sm-12 d" style="background-color: green; height: 300px; background-image: url('/static/img/master.jpg'); background-size: cover;">
+                <div class="col-3">
+                    <a class="button__group" href="#">Подробнее</a>
+                </div>
+                <div class="text__group">
+                    <p>
+                        Мастер классы
+                    </p>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-12 d" style="background-color: yellow; height: 300px; background-image: url('/static/img/iss.jpg'); background-size: cover;">
+                <div class="col-3">
+                    <a class="button__group" href="http://127.0.0.1:8000/group/art/">Подробнее</a>
+                </div>
+                <div class="text__group">
+                    <p>
+                        Искусство
+                    </p>
+                </div>
+            </div>
+        </div>
+    </p>
+    <p>
+        Для тех, кто хочет быть в курсе самых интересных агротуров и новостей, AGROтур предлагает 
+        возможность подписки на хозяйства. Вы будете получать уведомления о новых турах, специальных 
+        предложениях и событиях, связанных с хозяйствами, которые вас интересуют.
+        <br><br>
+
+        <span style="color:green; font-weight: bold;">AGRO</span><span style="font-weight: bold;">тур</span> - это не просто сервис для бронирования туров, это сообщество людей, увлеченных 
+        агротуризмом. Мы стремимся сделать ваше путешествие по-настоящему незабываемым и помочь 
+        вам открыть для себя всю красоту и разнообразие агротуризма!
+    </p>
+    <h2>Для пользователей и бизнеса</h2>
+    <p>
+        <span style="color:green; font-weight: bold;">AGRO</span><span style="font-weight: bold;">тур</span> предлагает раздельную регистрацию для агро-хозяйств и пользователей, чтобы обеспечить наилучший опыт использования 
+        сервиса для каждой группы.
+        <br><br>
+        Агро-хозяйства могут зарегистрироваться на <span style="color:green; font-weight: bold;">AGRO</span><span style="font-weight: bold;">тур</span> и добавить свои туры на наш сайт. Это позволяет агро-хозяйствам представить 
+        свои услуги на международном уровне и привлечь новых клиентов. Мы предоставляем агро-хозяйствам инструменты для управления их 
+        профилем, включая добавление новых туров, управление ценами и наличием мест, а также просмотр отзывов клиентов.
+        <br><br>
+        Пользователи могут зарегистрироваться на <span style="color:green; font-weight: bold;">AGRO</span><span style="font-weight: bold;">тур</span> и искать туры по всей стране, используя наш удобный интерфейс. 
+        Зарегистрированные пользователи получают доступ к дополнительным функциям, таким как сохранение интересующих их туров в 
+        Избранное, подписка на новости и специальные предложения, а также возможность оставлять отзывы и рейтинги посещенных ими агро-хозяйств.
+        Раздельная регистрация позволяет <span style="color:green; font-weight: bold;">AGRO</span><span style="font-weight: bold;">тур</span> оптимизировать сервис для каждой группы пользователей и обеспечивает наилучший 
+        опыт использования для всех наших клиентов.
+        <style>
+            .octagon {
+                -webkit-clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
+        clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
+        }
+        </style>
+        <div class="img" style="text-align: center;">
+            <div class="row">
+                <div class="col-xl-6 col-sm-12">
+                    <img class="octagon" src="{% static 'img/hum.png' %}" style="width:70%; height: 380px;"></img>
+                </div>
+                <div class="col-xl-6 col-sm-12">
+                    <img class="octagon" src="{% static 'img/fermer2.jpeg' %}" style="width:70%; height: 380px;"></img>
+                    {% comment %} <img src="{% static 'img/fermer.jpg' %}" style="width:70%; height: 380px; border-radius:50%; border: 3px solid black;"></img> {% endcomment %}
+                </div>
+            </div>
+        </div>
+    </p>
+
 </div>
 {% endblock %} 

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Books</h1>
+  <form method="get">
+    {{ filter.form.as_p }}
+    <button type="submit">Filter</button>
+  </form>
+  <ul>
+    {% for post in filter.qs %}
+      <li>{{ post.title }} by {{ post.author }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

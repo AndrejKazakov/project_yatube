@@ -4,17 +4,17 @@
       <li class="nav-item">
         <a 
           class="nav-link {% if index %}active{% endif %}"
-          href="{% url 'posts:index' %}"
+          href="{% url 'posts:index' %}" style="color: green; font-weight:bold"
         >
-          Все авторы
+          Все посты
         </a>
       </li>
       <li class="nav-item">
         <a 
            class="nav-link {% if follow %}active{% endif %}"
-           href="{% url 'posts:follow_index' %}"
+           href="{% url 'posts:follow_index' %}" style="color: green; font-weight:bold"
         >
-          Избранные авторы
+          Подписки
         </a>
       </li>
     </ul>

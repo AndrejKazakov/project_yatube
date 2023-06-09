@@ -6,6 +6,23 @@
 {% block content %}
   <div class="container py-5">
     <div class="mb-5">
+      <div class="row" style="padding-bottom: 20px; background: #efefef;">
+        <div class="ava col-4" style="height: 380px; background-image: url('/static/img/user4.png'); background-size: cover;">
+        </div>
+        
+        <style>
+          .desc p {
+            font-size: 20px;
+          }
+        </style>
+        <div class="desc col-8">
+          <h1>Здесь будет имя пользователя</h1>
+          <p>Здесь будет информация о пользователе</p>
+          <p>- Описание<br>- Деятельность<br>- Роль пользователя<br>- Контакты</p>
+          <br>
+          <p>- Возможность изменять данные</p>
+        </div>
+      </div>
       <h1>Все посты пользователя {{ author.get_full_name }}</h1>
       <h3>Всего постов: {{ author.posts.count }} </h3>
       {% if following %}
@@ -19,7 +36,7 @@
           <a
             class="btn btn-lg btn-primary"
             href="{% url 'posts:profile_follow' author.username %}" role="button"
-          >
+            style="background: green; border: none;">
             Подписаться
           </a>
       {% endif %}

@@ -1,22 +1,55 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post, Group, User, Follow
-from .forms import PostForm, CommentForm
+from django.core.paginator import Paginator
+from .forms import PostForm, CommentForm, FilterForm
 from django.contrib.auth.decorators import login_required
 from .utils import paginator
 from django.urls import reverse
 
+from django.views.generic import ListView
+from django_filters.views import FilterView
+from .models import Post
+from .filters import PostFilter
+
 
 def index(request):
     template = 'posts/index.html'
-
     post_list = Post.objects.all()
-    page_obj = paginator(request, post_list)
+    # 
+    if request.method == 'POST':
+        post_filter = PostFilter(request.POST, queryset=post_list)
+    else:
+        post_filter = PostFilter(queryset=post_list)
+    # page_obj = paginator(request, post_list)
+    page_obj = Paginator(post_filter.qs, 5).get_page(request.GET.get('page'))
     context = {
         'title': 'Последние обновления на сайте',
-        'posts': post_list,
+        'posts': post_filter,
         'page_obj': page_obj,
     }
     return render(request, template, context)
+
+
+class PostListView(FilterView):
+    model = Post
+    filterset_class = PostFilter
+    paginate_by = 10
+    template_name = 'posts/filter.html'
+
+# def filter_index(request):
+#     template = 'posts/index.html'
+#     form = FilterForm()
+
+#     post_list = Post.objects.all()
+#     page_obj = paginator(request, post_list)
+#     context = {
+#         'title': 'Последние обновления на сайте',
+#         'posts': post_list,
+#         'page_obj': page_obj,
+#         'form': form
+#     }
+
+#     return render(request, template, context)
 
 
 def group_posts(request, slug):
@@ -62,7 +95,7 @@ def post_detail(request, post_id):
     post = get_object_or_404(Post, id=post_id)
 
     comments = post.comments.all()
-    posts_count = Post.objects.count()
+    posts_count = Post.objects.filter(author=post.author).count()
     context = {
         'post': post,
         'posts_count': posts_count,
